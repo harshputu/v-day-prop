@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Proposal</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f6d1d1;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .question {
+      font-size: 2rem;
+      color: #ff407b;
+      margin-bottom: 30px;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .button {
+      background-color: #fff;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border: 2px solid #ff407b;
+      color: #ff407b;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background-color: #ff407b;
+      color: #fff;
+    }
+
+    .no-button {
+      position: absolute;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .final-page {
+      text-align: center;
+    }
+
+    .thank-you {
+      font-size: 2.5rem;
+      color: #ff407b;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .love-message {
+      font-size: 1.5rem;
+      color: #f07;
+      margin-bottom: 30px;
+    }
+
+    .gif-container img {
+      width: 50%;
+      border-radius: 15px;
+    }
+
+    /* Fix button container alignment */
+    .button-container {
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="proposal-container">
+    <h1>💖</h1>
+    <div class="question">
+      <p>Will you be my Valentine, Chote💖💖?</p>
+    </div>
+
+    <div class="button-container">
+      <button class="button" id="yesBtn">Yes</button>
+      <button class="button no-button" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <div class="final-page hidden" id="finalPage">
+    <div class="thank-you">Thanks for being my Valentine!💖💖💖💖</div>
+    <div class="love-message">I love you so much!💖🐘💖</div>
+    <div class="gif-container">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXp3bmhiYjgwcjRqNDBxanhyZXJwYTJkaDY4djc3dGMzcTFnODVydiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kaOTjmAsBgkCcK5cwV/giphy.gif" alt="Proposal GIF">
+    </div>
+  </div>
+
+  <script>
+    // Get references to elements
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const finalPage = document.getElementById('finalPage');
+    const proposalContainer = document.querySelector('.proposal-container');
+    const buttonContainer = document.querySelector('.button-container');
+
+    // Show final page when Yes is clicked
+    yesBtn.addEventListener('click', function () {
+      proposalContainer.style.display = 'none';  // Hide the question section
+      finalPage.classList.remove('hidden');  // Show the final page
+    });
+
+    // Function to make the No button move to random positions
+    function moveNoButton() {
+      const maxWidth = window.innerWidth - noBtn.offsetWidth;
+      const maxHeight = window.innerHeight - noBtn.offsetHeight;
+
+      // Generate random positions for X and Y within screen limits
+      const randomX = Math.floor(Math.random() * maxWidth);
+      const randomY = Math.floor(Math.random() * maxHeight);
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    // Move the No button when hovered
+    noBtn.addEventListener('mouseenter', function () {
+      noBtn.style.position = 'absolute'; // Change position to absolute to move freely
+      moveNoButton(); // First move when hovered
+      noBtn.style.transition = 'none'; // Disable transition during movement
+
+      // Keep moving every 500ms while hovered
+      const moveInterval = setInterval(moveNoButton, 500);
+
+      // Stop moving when mouse leaves the button
+      noBtn.addEventListener('mouseleave', function () {
+        clearInterval(moveInterval); // Stop moving the button
+        noBtn.style.transition = '0.3s ease-in-out'; // Re-enable transition
+      });
+    });
+
+    // Remove the "No" button when the final page is shown
+    function hideNoButton() {
+      noBtn.style.display = 'none';
+    }
+
+    // Call the hideNoButton function when showing the final page
+    yesBtn.addEventListener('click', hideNoButton);
+
+  </script>
+
+</body>
+
+</html>
